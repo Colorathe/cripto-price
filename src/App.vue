@@ -72,7 +72,7 @@ export default {
             >
               {{ coin.price_change_percentage_24h }} %
             </td>
-            <td>$ {{ coin.total_volume.toLocalString() }}</td>
+            <td>$ {{ coin.total_volume.toLocaleString() }}</td>
           </tr>
         </tbody>
       </table>
