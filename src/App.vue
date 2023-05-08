@@ -1,38 +1,3 @@
-<script>
-export default {
-  name: "App",
-  data() {
-    return {
-      coins: [],
-      filterCoins: [],
-      titles: ["#", "Coin", "Price", "Price Chage", "24h Volume"],
-      textSearch: "",
-    };
-  },
-  async mounted() {
-    const res = await fetch(
-      "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=1&sparkline=false"
-    );
-    const data = await res.json();
-    this.coins = data;
-    this.filterCoins = data;
-  },
-  methods: {
-    searchCoin() {
-      this.filterCoins = this.coins.filter(
-        (coin) =>
-          coin.name
-            .toLowerCase()
-            .includes(this.textSearch.toLocaleLowerCase()) ||
-          coin.symbol
-            .toLowerCase()
-            .includes(this.textSearch.toLocaleLowerCase())
-      );
-    },
-  },
-};
-</script>
-
 <template>
   <div class="container">
     <div class="row">
@@ -44,6 +9,7 @@ export default {
         placeholder="Search Coin"
         @keyup="searchCoin()"
         v-model="textSearch"
+        autofocus
       />
 
       <table class="table table-dark">
@@ -80,4 +46,40 @@ export default {
   </div>
 </template>
 
-<style scoped></style>
+<script>
+export default {
+  name: "App",
+  components: {},
+  data() {
+    return {
+      coins: [],
+      filterCoins: [],
+      titles: ["#", "Coin", "Price", "Price Chage", "24h Volume"],
+      textSearch: "",
+    };
+  },
+  async mounted() {
+    const res = await fetch(
+      "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=1&sparkline=false"
+    );
+    const data = await res.json();
+    this.coins = data;
+    this.filterCoins = data;
+  },
+  methods: {
+    searchCoin() {
+      this.filterCoins = this.coins.filter(
+        (coin) =>
+          coin.name
+            .toLowerCase()
+            .includes(this.textSearch.toLocaleLowerCase()) ||
+          coin.symbol
+            .toLowerCase()
+            .includes(this.textSearch.toLocaleLowerCase())
+      );
+    },
+  },
+};
+</script>
+
+<style></style>
